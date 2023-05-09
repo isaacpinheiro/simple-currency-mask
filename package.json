@@ -1,0 +1,28 @@
+{
+  "name": "simple-currency-mask",
+  "version": "1.0.0",
+  "description": "A simple currency mask for React.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isaacpinheiro/simple-currency-mask.git"
+  },
+  "keywords": [
+    "mask",
+    "currency",
+    "React",
+    "react"
+  ],
+  "author": "Isaac Pinheiro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/isaacpinheiro/simple-currency-mask/issues"
+  },
+  "homepage": "https://github.com/isaacpinheiro/simple-currency-mask#readme",
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
+}
