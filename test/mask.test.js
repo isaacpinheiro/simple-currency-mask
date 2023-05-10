@@ -89,5 +89,29 @@ test("11 - Testing unmask function with the decimalSeparator = '.'.", () => {
 
 });
 
-// dynamicMask tests
-// TODO
+test("12 - Testing dynamicMask function with the config object.", () => {
+
+  let config = { decimalSeparator: ",", currency: "R$", negative: true };
+
+  expect(dynamicMask("1234567.89", config)).toBe("R$ 1.234.567,89");
+  expect(dynamicMask("-1234567.89", config)).toBe("R$ -1.234.567,89");
+
+});
+
+test("13 - Testing dynamicMask function without currency attribute and negative = false.", () => {
+
+  let config = { decimalSeparator: ",", negative: false };
+
+  expect(dynamicMask("1234567.89", config)).toBe("1.234.567,89");
+  expect(dynamicMask("-1234567.89", config)).toBe("1.234.567,89");
+
+});
+
+test("14 - Testing dynamicMask function without the decimalSeparator and negative attributes.", () => {
+
+  let config = { currency: "$" };
+
+  expect(dynamicMask("1234567.89", config)).toBe("$ 1,234,567.89");
+  expect(dynamicMask("-1234567.89", config)).toBe("$ -1,234,567.89");
+
+});
