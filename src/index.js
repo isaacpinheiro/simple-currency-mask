@@ -47,7 +47,46 @@ function mask(strVal, config = null) {
 }
 
 function unmask(strVal, config = null) {
-  return "";
+
+  let res = ""; 
+  let vec = null;
+  let decimalSeparator = ".";
+  let separator = ",";
+  let currency = "";
+
+  if (config !== null) {
+
+    if (config.decimalSeparator !== undefined && config.decimalSeparator !== null
+      && config.decimalSeparator === ",") {
+
+      decimalSeparator = config.decimalSeparator;
+      separator = ".";
+
+    }
+
+    if (config.currency !== undefined && config.currency !== null) {
+      currency = config.currency + " ";
+    }
+
+  }
+
+  if (currency !== "") {
+    strVal = strVal.split(currency)[1];
+  }
+
+  vec = strVal.split(decimalSeparator);
+
+  for (let i = 0; i < vec[0].length; i++) {
+
+    if (vec[0][i] !== separator) {
+      res = res + vec[0][i];
+    }   
+
+  }
+
+  res = res + "." + vec[1];
+  return res;
+
 }
 
 function dynamicMask(strVal, config = null) {
