@@ -90,7 +90,109 @@ function unmask(strVal, config = null) {
 }
 
 function dynamicMask(strVal, config = null) {
-  return "";
+
+  let decimalSeparator = ".";
+  let separator = ",";
+  let currency = "";
+  let negative = true;
+  let sval = "";
+  let re = null;
+  let isNeg = false;
+
+  if (config !== null) {
+
+    if (config.decimalSeparator !== undefined && config.decimalSeparator !== null
+      && config.decimalSeparator === ",") {
+
+      decimalSeparator = config.decimalSeparator;
+      separator = ".";
+
+    }
+
+    if (config.currency !== undefined && config.currency !== null) {
+      currency = config.currency;
+    }
+
+    if (config.negative !== undefined && config.negative !== null) {
+      negative = config.negative;
+    }
+
+  }
+
+  if (negative) re = /^(-|[0-9])$/i;
+  else re = /^[0-9]$/i;
+
+  if (strVal !== "-0.0" && strVal !== "-0,0") {
+
+    for (let i = 0; i < strVal.length; i++) {
+
+      if (re.test(strVal[i])) {
+
+        if (strVal[i] === "-") isNeg = true;
+        else sval = sval + strVal[i];
+
+      }
+
+    }
+
+  }
+
+  sval = parseInt(sval);
+  sval = sval.toString();
+  let res = "";
+
+  if (sval === "NaN") {
+
+    if (decimalSeparator === ".") res = "0.00";
+    else res = "0,00";
+
+  } else if (sval.length === 1) {
+
+    if (decimalSeparator === ".") res = "0.0" + sval;
+    else res = "0,0" + sval;
+
+  } else if (sval.length === 2) {
+
+    if (decimalSeparator === ".") res = "0." + sval;
+    else res = "0," + sval;
+
+  } else {
+
+    let i = sval.length - 1;
+    let c = 0;
+
+    res = sval[i] + res;
+    i--;
+
+    res = sval[i] + res;
+    i--;
+
+    res = decimalSeparator + res;
+
+    for (; i >= 0; i--) {
+
+      if (c !== 0 && c % 3 === 0) {
+
+        res = sval[i] + separator + res;
+
+      } else {
+        res = sval[i] + res;
+      }
+
+      c++;
+
+    }
+
+  }
+
+  if (isNeg) {
+    res = "-" + res;
+  }
+
+  if (currency !== "") res = currency + " " + res;
+
+  return res;
+
 }
 
 module.exports = {
