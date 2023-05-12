@@ -115,3 +115,23 @@ test("14 - Testing dynamicMask function without the decimalSeparator and negativ
   expect(dynamicMask("-1234567.89", config)).toBe("$ -1,234,567.89");
 
 });
+
+test("15 - Testing dynamicMask('-0.0').", () => {
+  expect(dynamicMask("-0.0")).toBe("0.00");
+});
+
+test("16 - Testing dynamicMask('0.00-').", () => {
+  expect(dynamicMask("0.00-")).toBe("-0.00");
+});
+
+test("17 - Testing dynamicMask('-0.001').", () => {
+  expect(dynamicMask("-0.001")).toBe("-0.01");
+});
+
+test("18 - Testing dynamicMask('0.00-') and negative = false.", () => {
+
+  let config = { negative: false };
+
+  expect(dynamicMask("0.00-", config)).toBe("0.00");
+
+});
