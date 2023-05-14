@@ -135,3 +135,11 @@ test("18 - Testing dynamicMask('0.00-') and negative = false.", () => {
   expect(dynamicMask("0.00-", config)).toBe("0.00");
 
 });
+
+test("19 - Testing dynamicMask('$ -0.0') and currency = $.", () => {
+
+  let config = { currency: "$", negative: true };
+
+  expect(dynamicMask("$ -0.0", config)).toBe("$ 0.00");
+
+});
