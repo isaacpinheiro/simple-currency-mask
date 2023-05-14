@@ -122,7 +122,13 @@ function dynamicMask(strVal, config = null) {
   if (negative) re = /^(-|[0-9])$/i;
   else re = /^[0-9]$/i;
 
-  if (strVal !== "-0.0" && strVal !== "-0,0") {
+  let cond = (strVal !== "-0.0" && strVal !== "-0,0");
+
+  if (currency !== "") {
+    cond = (strVal !== (currency + " -0.0") && strVal !== (currency + " -0,0"));
+  }
+
+  if (cond) {
 
     for (let i = 0; i < strVal.length; i++) {
 
